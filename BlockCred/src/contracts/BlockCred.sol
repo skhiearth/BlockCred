@@ -6,7 +6,7 @@ contract BlockCred {
     mapping(uint => Certificate) public certificates;
     
     struct Certificate {
-        uint id;
+        uint identity;
         uint recipients;
         string certificateName;
         uint certificateCost;
@@ -15,21 +15,21 @@ contract BlockCred {
     }
     
     function newCertificate(string memory name, uint cost) public {
-        certificateCount++;
         Certificate storage c = certificates[certificateCount];
-        c.id = certificateCount;
+        c.identity = certificateCount;
         c.certificateName = name;
         c.author = msg.sender;
         c.recipients = 0;
         c.certificateCost = cost;
+        certificateCount++;
     }
     
     function purchaseCertificate(uint _id, uint cost) public payable {
         require(_id > 0 && _id <= certificateCount, 'Id not valid');
         Certificate storage c = certificates[_id];
-        require(cost >= c.certificateCost, "This certificate is worth more.");
         c.recipientsMapping[msg.sender] = true;
-        c.author.transfer(cost);
+        require(cost >= c.certificateCost, "This certificate is worth more.");
+        c.author.transfer(msg.value);
         c.recipients++;
     }
     

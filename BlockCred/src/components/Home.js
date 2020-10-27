@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
 import BlockCred from '../abis/BlockCred.json'
-import Navbar from './Navbar'
 import Main from './Main'
 
-class App extends Component {
+class Home extends Component {
 
   async componentWillMount() {
     await this.loadWeb3()
@@ -38,10 +37,9 @@ class App extends Component {
       this.setState({ blockCred })
       
       const certificateCount = await blockCred.methods.certificateCount().call()
-      window.alert(certificateCount)
       this.setState({ certificateCount })
       // Load Certificates
-      for (var i = 1; i < certificateCount; i++) {
+      for (var i = 0; i <= certificateCount; i++) {
         const cert = await blockCred.methods.certificates(i).call()
         console.log(cert)
         this.setState({
@@ -60,8 +58,6 @@ class App extends Component {
 
   createCertificate(content, value) {
     this.setState({ loading: true })
-    window.alert(content)
-    window.alert(value)
     this.state.blockCred.methods.newCertificate(content, value).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
@@ -69,14 +65,13 @@ class App extends Component {
     })
   }
 
-  purchaseCertificate(id, cost) {
+  purchaseCertificate(name, cost) {
     this.setState({ loading: true })
-    this.state.blockCred.methods.purchaseCertificate(id, cost).send({ from: this.state.account, value: cost })
+    this.state.blockCred.methods.purchaseCertificate(name, cost).send({ from: this.state.account, value: cost })
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
       console.log(this.state.loading)
     })
-    
   }
 
   constructor(props) {
@@ -96,7 +91,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar account={this.state.account} />
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
@@ -110,4 +104,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Home;

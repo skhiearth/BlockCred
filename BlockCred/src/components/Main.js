@@ -40,16 +40,18 @@ class Main extends Component {
                 return(
                   <div className="card mb-4" key={key} >
                     <div className="card-header">
-                      <small className="text-muted">{certificate.name}</small>
+                      <small className="text-muted">{certificate.certificateName}</small>
+                      <p></p>
+                      <small className="text-muted">ID of Certificate: {(certificate.identity.toString())}</small>
                     </div>
                     <ul id="certificateList" className="list-group list-group-flush">
                       <li key={key} className="list-group-item py-2">
                         <small className="float-left mt-1 text-muted">
-                          Cost of the certificate: {window.web3.utils.fromWei(certificate.certificateCost.toString(), 'Ether')} ETH
+                          Certificate ID: {window.web3.utils.fromWei(certificate.certificateCost.toString(), 'Ether')} ETH
                         </small>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
-                          name={certificate.id}
+                          name={certificate.identity}
                           onClick={(event) => {
                             let cost = certificate.certificateCost
                             this.props.purchaseCertificate(event.target.name, cost.toString())
