@@ -4,7 +4,7 @@ import { Navigation, Footer, Home, Verify } from "./components";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{height:800}}>
       <Router>
         <Navigation />
         <Switch>

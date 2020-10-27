@@ -1,14 +1,15 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import styles from './App.module.css';
 
 function Navigation(props) {
   return (
     <div className="navigation">
-      <nav class="py-5 navbar navbar-expand-lg">
+      <nav class="py-3 navbar navbar-expand-lg">
         <div class="container">
-          <Link class="navbar-brand" to="/">
+          <div class="navbar-brand" className={styles.navbarheading}>
             BlockCred
-          </Link>
+          </div>
           <button
             class="navbar-toggler"
             type="button"
@@ -27,7 +28,7 @@ function Navigation(props) {
                   props.location.pathname === "/" ? "active" : ""
                 }`}
               >
-                <Link class="nav-link" to="/">
+                <Link class="nav-link" to="/" className={styles.navbarlinks}>
                   Home
                   <span class="sr-only">(current)</span>
                 </Link>
@@ -37,7 +38,7 @@ function Navigation(props) {
                   props.location.pathname === "/verify" ? "active" : ""
                 }`}
               >
-                <Link class="nav-link" to="/verify">
+                <Link class="nav-link" to="/verify" className={styles.navbarlinks}>
                   Verify Certificate
                 </Link>
               </li>

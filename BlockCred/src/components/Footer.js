@@ -1,12 +1,16 @@
 import React from "react";
+import styles from './App.module.css';
 
 function Footer() {
   return (
     <div className="footer">
-      <footer class="py-3 bg-dark fixed-bottom">
-        <div class="container">
-          <p class="m-0 text-center text-white">
-            Made with ❤️ by The Misfits
+      <footer class="py-1 fixed-bottom" style={{height:80}}>
+        <div class="container" style={{padding:20}}>
+          <p class="m-0 text-center text-dark" className={styles.footerHeader}>
+            Made with <span role="img" aria-label="love">❤️</span> by The Misfits
+          </p>
+          <p class="m-0 text-center text-dark" className={styles.footerCredits}>
+            Arpit Masih  |  Simran Gogia  |  Utkarsh Sharma
           </p>
         </div>
       </footer>
