@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import './App.css';
 import BlockCred from '../abis/BlockCred.json'
 import Main from './Main'
+import bg from '../BlockCred UI elements/bg.png'
 
 class Home extends Component {
 
@@ -90,7 +91,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div styles={{ backgroundImage:`url(${bg})`}}>
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main

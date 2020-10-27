@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 function Navigation(props) {
   return (
     <div className="navigation">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="py-5 navbar navbar-expand-lg">
         <div class="container">
           <Link class="navbar-brand" to="/">
             BlockCred
@@ -34,20 +34,11 @@ function Navigation(props) {
               </li>
               <li
                 class={`nav-item  ${
-                  props.location.pathname === "/about" ? "active" : ""
+                  props.location.pathname === "/verify" ? "active" : ""
                 }`}
               >
-                <Link class="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-              <li
-                class={`nav-item  ${
-                  props.location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/contact">
-                  Contact
+                <Link class="nav-link" to="/verify">
+                  Verify Certificate
                 </Link>
               </li>
             </ul>
