@@ -22,7 +22,7 @@ class Main extends Component {
                     <ul id="certificateList" className="list-group list-group-flush">
                       <li key={key} className="list-group-item py-2">
                         <small className="float-left mt-1 text-muted">
-                          Certificate ID: {window.web3.utils.fromWei(certificate.certificateCost.toString(), 'Ether')} ETH
+                          Certificate Cost: {window.web3.utils.fromWei(certificate.certificateCost.toString(), 'Ether')} ETH
                         </small>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"

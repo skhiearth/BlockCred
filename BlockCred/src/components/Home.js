@@ -5,7 +5,6 @@ import styles from './App.module.css';
 import BlockCred from '../abis/BlockCred.json'
 import Main from './Main'
 import bg from '../BlockCred UI elements/bg.png'
-var api = require('etherscan-api').init('AGC1TEVQX85RTXQUF76WJWCV58JFREVMJD', 'ropsten', '3000');
 
 const style = {
   content: {
@@ -58,16 +57,11 @@ class Home extends Component {
           certificates: [...this.state.certificates, cert]
         })
       }
-      // Sort certificates. Show highest tipped posts first
+      // Sort certificates. Show most popular certificate first
       this.setState({
-        posts: this.state.certificates.sort((a,b) => b.certificateCost - a.certificateCost )
+        certificates: this.state.certificates.sort((a,b) => b.recipients - a.recipients )
       })
       this.setState({ loading: false})
-
-      var balance = api.account.balance(this.state.account);
-      balance.then(function(balanceData){
-        console.log(balanceData);
-      });
 
     } else {
       window.alert('BlockCred contract not deployed to detected network.')

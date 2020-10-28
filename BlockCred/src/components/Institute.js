@@ -39,35 +39,30 @@ class Institute extends Component {
       this.setState({ blockCred })
       
       const certificateCount = await blockCred.methods.certificateCount().call()
+      const requestCount = await blockCred.methods.requestsCount().call()
+
       this.setState({ certificateCount })
-      // Load Certificates
-      for (var i = 0; i < certificateCount; i++) {
-        const cert = await blockCred.methods.certificates(i).call()
-        if(cert.author === this.state.account){
+      this.setState({ requestCount })
+      // Load Requests
+      for (var i = 0; i < requestCount; i++) {
+        const req = await blockCred.methods.requests(i).call()
+        if(req.certificateOwner === this.state.account){
+            console.log(req.studentId)
             this.setState({
-                certificates: [...this.state.certificates, cert]
-              })
+                requests: [...this.state.requests, req]
+            })
         }
       }
-      // Sort certificates. Show highest tipped posts first
-      this.setState({
-        posts: this.state.certificates.sort((a,b) => b.certificateCost - a.certificateCost )
-      })
       this.setState({ loading: false})
-
-      var balance = api.account.balance(this.state.account);
-      balance.then(function(balanceData){
-        console.log(balanceData);
-      });
 
     } else {
       window.alert('BlockCred contract not deployed to detected network.')
     }
   }
 
-  createCertificate(content, value) {
+  approveRequest(certId, student, req) {
     this.setState({ loading: true })
-    this.state.blockCred.methods.newCertificate(content, value).send({ from: this.state.account })
+    this.state.blockCred.methods.approveRequest(certId, student, req).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({ loading: false })
       console.log(this.state.loading)
@@ -80,11 +75,13 @@ class Institute extends Component {
       account: '',
       blockCred: null,
       certificateCount: 0,
+      requestCount: 0,
       certificates: [],
+      requests: [],
       loading: true
     }
 
-    this.createCertificate = this.createCertificate.bind(this)
+    this.approveRequest = this.approveRequest.bind(this)
   }
 
   render() {
@@ -125,28 +122,33 @@ class Institute extends Component {
                 <button type="submit" className="btn btn btn-outline-primary btn-block">Create Certificate</button>
               </form>
               <p>&nbsp;</p>
-              { this.state.certificates.map((certificate, key) => {
+              <div style={{textAlign:"center", verticalAlign:"middle"}}>
+                <div className={styles.verifyTitle} style={{textAlign:"center"}}>Requests</div>
+              </div>
+              { this.state.requests.map((request, key) => {
                 return(
+                    
                   <div className="card mb-4" key={key} >
+
                     <div className="card-header">
-                      <small className="text-muted">{certificate.certificateName}</small>
+                      <small className="text-muted">Request of ID: {request.id.toString()}</small>
                       <p></p>
-                      <small className="text-muted">ID of Certificate: {(certificate.identity.toString())}</small>
+                      <small className="text-muted">ID of Certificate: {(request.certificateId.toString())}</small>
+                      <p></p>
+                      <small className="text-muted">Applicant: {(request.studentId.toString())}</small>
                     </div>
                     <ul id="certificateList" className="list-group list-group-flush">
                       <li key={key} className="list-group-item py-2">
-                        <small className="float-left mt-1 text-muted">
-                          Certificate ID: {window.web3.utils.fromWei(certificate.certificateCost.toString(), 'Ether')} ETH
-                        </small>
+                        
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
-                          name={certificate.identity}
+                          name={request.identity}
                           onClick={(event) => {
-                            let cost = certificate.certificateCost
-                            this.state.purchaseCertificate(event.target.name, cost.toString())
+                            this.approveRequest(request.certificateId.toString(),
+                            request.studentId.toString(), request.id.toString())
                           }}
                         >
-                          Claim Certificate
+                          Approve Request
                         </button>
                       </li>
                     </ul>
