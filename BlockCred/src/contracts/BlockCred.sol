@@ -12,6 +12,7 @@ contract BlockCred {
         uint certificateCost;
         address payable author;
         mapping(address => bool) recipientsMapping;
+        mapping(address => bool) requests;
     }
     
     function newCertificate(string memory name, uint cost) public {
@@ -24,13 +25,21 @@ contract BlockCred {
         certificateCount++;
     }
     
-    function purchaseCertificate(uint _id, uint cost) public payable {
-        require(_id > 0 && _id <= certificateCount, 'Id not valid');
+    function approveRequest(uint _id, address student) public payable {
         Certificate storage c = certificates[_id];
-        c.recipientsMapping[msg.sender] = true;
+        require(msg.sender == c.author, 'You are not authorised');
+        if(c.requests[student] == true){
+            c.recipientsMapping[student] = true;
+            msg.sender.transfer(c.certificateCost);
+            c.recipients++;
+        }
+    }
+    
+    function purchaseCertificate(uint _id, uint cost) public payable {
+        // require(_id > 0 && _id <= certificateCount, 'Id not valid');
+        Certificate storage c = certificates[_id];
         require(cost >= c.certificateCost, "This certificate is worth more.");
-        c.author.transfer(msg.value);
-        c.recipients++;
+        c.requests[msg.sender] = true;
     }
     
     function checkValidity(uint _contractId, address _student) public view returns (bool) {

@@ -10,32 +10,6 @@ class Main extends Component {
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '800px' }}>
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
-                <form onSubmit={(event) => {
-                  event.preventDefault()
-                  const content = this.certificateContent.value
-                  const value = this.certificateValue.value
-                  this.props.createCertificate(content, window.web3.utils.toWei(value.toString(), 'Ether'))
-                }}>
-                <div className="form-group mr-sm-2">
-                  <input
-                    id="certificateContent"
-                    type="text"
-                    ref={(input) => { this.certificateContent = input }}
-                    className="form-control"
-                    placeholder="Name of the certificate"
-                    required />
-                </div>
-                <div className="form-group mr-sm-2">
-                  <input
-                    id="certificateValue"
-                    type="text"
-                    ref={(input) => { this.certificateValue = input }}
-                    className="form-control"
-                    placeholder="Value of the certificate"
-                    required />
-                </div>
-                <button type="submit" className="btn btn-primary btn-block">Create Certificate</button>
-              </form>
               <p>&nbsp;</p>
               { this.props.certificates.map((certificate, key) => {
                 return(

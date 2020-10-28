@@ -13,6 +13,7 @@
     font-family: 'Barlow', sans-serif;
     text-align: center;
     padding-left: 10px;
+    margin-left: 20px;
     font-size: 16px;
     font-weight: 600;
 }
@@ -72,4 +73,8 @@
     font-size: 16px;
     margin: 0px 0px;
     border-radius: 40px;
+}
+
+.recentDiv {
+    background-color: #8E08F5;
 }

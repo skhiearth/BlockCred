@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import './App.css';
+import styles from './App.module.css';
 import BlockCred from '../abis/BlockCred.json'
 import Main from './Main'
 import bg from '../BlockCred UI elements/bg.png'
+var api = require('etherscan-api').init('AGC1TEVQX85RTXQUF76WJWCV58JFREVMJD', 'ropsten', '3000');
+
+const style = {
+  content: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    color: "white",
+    borderRadius: 20,
+  }
+}
 
 class Home extends Component {
 
@@ -40,9 +52,8 @@ class Home extends Component {
       const certificateCount = await blockCred.methods.certificateCount().call()
       this.setState({ certificateCount })
       // Load Certificates
-      for (var i = 0; i <= certificateCount; i++) {
+      for (var i = 0; i < certificateCount; i++) {
         const cert = await blockCred.methods.certificates(i).call()
-        console.log(cert)
         this.setState({
           certificates: [...this.state.certificates, cert]
         })
@@ -52,6 +63,12 @@ class Home extends Component {
         posts: this.state.certificates.sort((a,b) => b.certificateCost - a.certificateCost )
       })
       this.setState({ loading: false})
+
+      var balance = api.account.balance(this.state.account);
+      balance.then(function(balanceData){
+        console.log(balanceData);
+      });
+
     } else {
       window.alert('BlockCred contract not deployed to detected network.')
     }
@@ -93,12 +110,36 @@ class Home extends Component {
     return (
       <div styles={{ backgroundImage:`url(${bg})`}}>
         { this.state.loading
-          ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
-          : <Main
-              certificates={this.state.certificates}
-              createCertificate={this.createCertificate}
-              purchaseCertificate={this.purchaseCertificate}
-            />
+          ? <div id="loader" className="text-center mt-8"><p>Loading...</p></div>
+          : 
+          <div>
+          <div className="about">
+          <div class="container">
+            <div class="row align-items-center my-5">
+              <div class="col-lg-8">
+                <Main
+                    certificates={this.state.certificates}
+                    createCertificate={this.createCertificate}
+                    purchaseCertificate={this.purchaseCertificate}
+                  />
+              </div>
+              <div class="col-lg-4" style={style.content}>
+                <div className={styles.verifyTitle}>My Progress</div>
+                <p></p>
+                <p className={styles.verifyBody}>
+                  lorem ipsum
+                </p>
+                <p className={styles.verifyBody}>
+                  dolor sen
+                </p>
+                <p className={styles.verifyBody}>
+                  lorem ipsum
+                </p>
+                </div>
+              </div>
+          </div>
+        </div>
+        </div>
         }
       </div>
     );

@@ -7,6 +7,7 @@ function Navigation(props) {
     <div className="navigation">
       <nav class="py-3 navbar navbar-expand-lg">
         <div class="container">
+
           <div class="navbar-brand" className={styles.navbarheading}>
             BlockCred
           </div>
@@ -42,9 +43,19 @@ function Navigation(props) {
                   Verify Certificate
                 </Link>
               </li>
+              <li
+                class={`nav-item  ${
+                  props.location.pathname === "/verify" ? "active" : ""
+                }`}
+              >
+                <Link class="nav-link" to="/institute" className={styles.navbarlinks}>
+                  Institutional Login
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
+        
       </nav>
     </div>
   );
