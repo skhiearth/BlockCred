@@ -69,6 +69,15 @@ class Institute extends Component {
     })
   }
 
+  createCertificate(content, value) {
+    this.setState({ loading: true })
+    this.state.blockCred.methods.newCertificate(content, value).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+      console.log(this.state.loading)
+    })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -81,6 +90,7 @@ class Institute extends Component {
       loading: true
     }
 
+    this.createCertificate = this.createCertificate.bind(this)
     this.approveRequest = this.approveRequest.bind(this)
   }
 

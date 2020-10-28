@@ -118,7 +118,7 @@ class Home extends Component {
                   />
               </div>
               <div class="col-lg-4" style={style.content}>
-                <div className={styles.verifyTitle}>My Progress</div>
+                <div className={styles.verifyTitle}>My Certificates</div>
                 <p></p>
                 <p className={styles.verifyBody}>
                   lorem ipsum
