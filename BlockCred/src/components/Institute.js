@@ -200,7 +200,7 @@ class Institute extends Component {
                       <p></p>
                       <small className="text-muted">Applicant: {(request.studentId.toString())}</small>
                       <p></p>
-                      <small className="text-muted">Value: {(request.value.toString())}</small>
+                      <small className="text-muted">Value: {window.web3.utils.fromWei(request.value.toString(), 'Ether')} ETH</small>
                     </div>
                     <ul id="certificateList" className="list-group list-group-flush">
                       <li key={key} className="list-group-item py-3">

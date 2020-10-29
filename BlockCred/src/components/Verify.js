@@ -5,6 +5,10 @@ import bg from '../BlockCred UI elements/bg.png'
 import BlockCred from '../abis/BlockCred.json';
 import Web3 from 'web3';
 import { MDBContainer } from 'mdbreact';
+import bagde from './Assets/badge.png';
+import noRec from './Assets/noRec.png';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
 class Verify extends Component {
 
@@ -61,7 +65,8 @@ class Verify extends Component {
     this.setState({ loading: true });
     if(await this.state.blockCred.methods.checkValidity(contractId, address).call({ from: this.state.account })){
         this.setState({ notverified: false });
-        window.alert('Verified')
+        const _temp = await this.state.blockCred.methods.certificates(contractId).call()
+        this.setState({ verifiedCertificate: _temp.certificateName.toString() });
     } else {
         this.setState({ notverified: true });
         window.alert('No record found!')
@@ -76,7 +81,8 @@ class Verify extends Component {
       blockCred: null,
       certificateCount: 0,
       certificates: [],
-      loading: true
+      loading: true,
+      verifiedCertificate: null
     }
 
     this.verifyCertificate = this.verifyCertificate.bind(this)
@@ -90,15 +96,33 @@ class Verify extends Component {
           <div class="row align-items-center my-5">
             <div class="col-lg-7" style={{ height: 300}}>
             { this.state.notverified ? 
-              <div style={{textAlign:"center", verticalAlign:"middle"}}>
-                <div className={styles.verifyTitle} style={{textAlign:"center"}}>Enter credential details to verify a certificate</div>
+              <div style={{ height: 300, backgroundImage: "url(" + noRec + ")", backgroundPosition: 'center', backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat', resizeMode: 'contain'}}>
+                
               </div>
               : 
-              <MDBContainer style={{height: 300}}>
-                <div>
-                  <div className={styles.verifyTitle} style={{textAlign:"center"}}>Verified</div>
+              <div>
+                <div id="certificateDown"style={{ height: 300, backgroundImage: "url(" + bagde + ")", backgroundPosition: 'center', backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat', resizeMode: 'contain'}}>
+                  
+                  <p style={{paddingTop: 115, textAlign: "center"}} className={styles.certificateName}>{this.state.verifiedCertificate}</p>
+                  <p style={{paddingTop: 0, textAlign: "center"}} className={styles.certificateAddress}>Issued to: {this.state.account}</p>
                 </div>
-              </MDBContainer>
+                <div style={{textAlign: "center", paddingTop: 15}}>
+                <button
+                  className="btn btn-info btn-sm pt-1" 
+                  onClick={(event) => {
+                    domtoimage.toBlob(document.getElementById('certificateDown'))
+                    .then(function(blob) {
+                      window.saveAs(blob, 'digitalBadge.png');
+                    });
+                  }}
+                >
+                Download
+                </button>
+                </div>
+              </div>
+              
             }
             </div>
             <div class="col-lg-5">

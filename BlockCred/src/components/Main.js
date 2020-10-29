@@ -25,7 +25,7 @@ class Main extends Component {
                           Certificate Cost: {window.web3.utils.fromWei(certificate.certificateCost.toString(), 'Ether')} ETH
                         </small>
                         <button
-                          className="btn btn-link btn-sm float-right pt-0"
+                          className="btn btn-outline-success btn-sm float-right pt-0"
                           name={certificate.identity}
                           onClick={(event) => {
                             let cost = certificate.certificateCost

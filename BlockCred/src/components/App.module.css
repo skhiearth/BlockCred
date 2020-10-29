@@ -78,3 +78,17 @@
 .recentDiv {
     background-color: #8E08F5;
 }
+
+.certificateName {
+    color: #250f82;
+    font-family: 'Barlow', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.certificateAddress {
+    color: #250f82;
+    font-family: 'Barlow', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+}

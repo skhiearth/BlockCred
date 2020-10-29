@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import bg from '../BlockCred UI elements/bg.png'
 import styles from './App.module.css';
 import BlockCred from '../abis/BlockCred.json'
 import Web3 from 'web3';
