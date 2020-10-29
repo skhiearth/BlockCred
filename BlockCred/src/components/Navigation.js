@@ -1,14 +1,16 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import styles from './App.module.css';
+import icon from './Assets/icon.png';
 
 function Navigation(props) {
   return (
     <div className="navigation">
-      <nav class="py-3 navbar navbar-expand-lg">
+      <nav class="py-3 navbar navbar-expand-sm">
         <div class="container">
-
-          <div class="navbar-brand" className={styles.navbarheading}>
+        <img src={icon} style={{height: 40, width: 40}} alt="Logo" /> 
+        
+          <div class="navbar-brand" style={{paddingLeft: 10}} className={styles.navbarheading}>
             BlockCred
           </div>
           <button

@@ -47,10 +47,12 @@ class Institute extends Component {
       for (var i = 0; i < requestCount; i++) {
         const req = await blockCred.methods.requests(i).call()
         if(req.certificateOwner === this.state.account){
-            console.log(req.studentId)
-            this.setState({
-                requests: [...this.state.requests, req]
-            })
+            if(req.approved === false){
+                console.log(req.studentId)
+                this.setState({
+                    requests: [...this.state.requests, req]
+                })
+            }
         }
       }
       this.setState({ loading: false})
@@ -67,6 +69,18 @@ class Institute extends Component {
       this.setState({ loading: false })
       console.log(this.state.loading)
     })
+    this.setState({ loading: false })
+  }
+
+  async declineRequest(certId, student, req, cost) {
+    window.alert(cost)
+    this.setState({ loading: true })
+    this.state.blockCred.methods.declineRequest(certId, student, req).send({ from: this.state.account, value: cost })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+      console.log(this.state.loading)
+    })
+    this.setState({ loading: false })
   }
 
   createCertificate(content, value) {
@@ -101,6 +115,7 @@ class Institute extends Component {
 
     this.createCertificate = this.createCertificate.bind(this)
     this.approveRequest = this.approveRequest.bind(this)
+    this.declineRequest = this.declineRequest.bind(this)
     this.directCreate = this.directCreate.bind(this)
   }
 
@@ -166,12 +181,13 @@ class Institute extends Component {
                     placeholder="Recipient's public address"
                     required />
                 </div>
-                <button type="submit" className="btn btn btn-outline-info btn-block">Assign Credentials</button>
+                <button type="submit" className="btn btn btn-outline-info btn-block">Directly Assign Credentials</button>
               </form>
               <p>&nbsp;</p>
               <div style={{textAlign:"center", verticalAlign:"middle"}}>
                 <div className={styles.verifyTitle} style={{textAlign:"center"}}>Requests</div>
               </div>
+              <p></p>
               { this.state.requests.map((request, key) => {
                 return(
                     
@@ -183,12 +199,26 @@ class Institute extends Component {
                       <small className="text-muted">ID of Certificate: {(request.certificateId.toString())}</small>
                       <p></p>
                       <small className="text-muted">Applicant: {(request.studentId.toString())}</small>
+                      <p></p>
+                      <small className="text-muted">Value: {(request.value.toString())}</small>
                     </div>
                     <ul id="certificateList" className="list-group list-group-flush">
-                      <li key={key} className="list-group-item py-2">
+                      <li key={key} className="list-group-item py-3">
                         
                         <button
-                          className="btn btn-link btn-sm float-right pt-0"
+                          className="btn btn-outline-danger btn-sm float-right pt-0"
+                          style={{marginLeft: 14}}
+                          name={request.identity}
+                          onClick={(event) => {
+                            this.declineRequest(request.certificateId.toString(),
+                            request.studentId.toString(), request.id.toString(), request.value.toString())
+                          }}
+                        >
+                          Decline Request
+                        </button>
+
+                        <button
+                          className="btn btn-outline-success btn-sm float-right pt-0"
                           name={request.identity}
                           onClick={(event) => {
                             this.approveRequest(request.certificateId.toString(),

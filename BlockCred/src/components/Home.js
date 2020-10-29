@@ -49,7 +49,11 @@ class Home extends Component {
       this.setState({ blockCred })
       
       const certificateCount = await blockCred.methods.certificateCount().call()
+      const requestCount = await blockCred.methods.requestsCount().call()
+
       this.setState({ certificateCount })
+      this.setState({ requestCount })
+
       // Load Certificates
       for (var i = 0; i < certificateCount; i++) {
         const cert = await blockCred.methods.certificates(i).call()
@@ -61,6 +65,21 @@ class Home extends Component {
       this.setState({
         certificates: this.state.certificates.sort((a,b) => b.recipients - a.recipients )
       })
+      this.setState({ loading: false})
+
+      for (var j = 0; j < 1000; j++) {
+        const req = await blockCred.methods.requests(j).call()
+        if(req.studentId === this.state.account){
+          this.setState({ loading: false})
+            if(req.approved === true){
+               this.setState({ notrequest: false })
+                this.setState({
+                    requests: [...this.state.requests, req]
+                })
+            }
+        }
+      }
+
       this.setState({ loading: false})
 
     } else {
@@ -86,6 +105,18 @@ class Home extends Component {
     })
   }
 
+  sortPopularity() {
+    this.setState({
+      certificates: this.state.certificates.sort((a,b) => b.recipients - a.recipients )
+    })
+  }
+
+  sortCost() {
+    this.setState({
+      certificates: this.state.certificates.sort((a,b) => b.certificateCost - a.certificateCost )
+    })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -93,11 +124,16 @@ class Home extends Component {
       blockCred: null,
       certificateCount: 0,
       certificates: [],
-      loading: true
+      requestCount: 0,
+      requests: [],
+      loading: true,
+      notrequest: true
     }
 
     this.createCertificate = this.createCertificate.bind(this)
     this.purchaseCertificate = this.purchaseCertificate.bind(this)
+    this.sortCost = this.sortCost.bind(this)
+    this.sortPopularity = this.sortPopularity.bind(this)
   }
 
   render() {
@@ -111,24 +147,38 @@ class Home extends Component {
           <div class="container">
             <div class="row align-items-center my-5">
               <div class="col-lg-8">
+                <button onClick={() => this.sortCost()} style={{marginRight: 10}} className="btn btn btn-outline-secondary">Sort by Cost</button>
+                <button onClick={() => this.sortPopularity()} className="btn btn btn-outline-secondary">Sort by Popularity</button>
                 <Main
                     certificates={this.state.certificates}
                     createCertificate={this.createCertificate}
                     purchaseCertificate={this.purchaseCertificate}
                   />
               </div>
+              
               <div class="col-lg-4" style={style.content}>
+
                 <div className={styles.verifyTitle}>My Certificates</div>
                 <p></p>
-                <p className={styles.verifyBody}>
-                  lorem ipsum
-                </p>
-                <p className={styles.verifyBody}>
-                  dolor sen
-                </p>
-                <p className={styles.verifyBody}>
-                  lorem ipsum
-                </p>
+                <div>
+                  { this.state.notrequest ? <div>
+                        <p className={styles.verifyBody}>
+                          No certificates found :(
+                        </p>
+                      </div> :
+                      <div>
+                    { this.state.requests.map((request, key) => {
+                      return(
+                        <div key={key} >
+                          <p className={styles.verifyBody}>
+                            Certificate {request.certName.toString()} with ID {request.certificateId.toString()} issued by {request.certificateOwner.toString()}
+                          </p>
+                        </div>
+                      )
+                    })}
+                    </div>
+                  }
+                </div>
                 </div>
               </div>
           </div>

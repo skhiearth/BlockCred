@@ -88,7 +88,7 @@ class Verify extends Component {
         <div className="about">
         <div class="container">
           <div class="row align-items-center my-5">
-            <div class="col-lg-7" style={{backgroundColor: 'white', height: 300}}>
+            <div class="col-lg-7" style={{ height: 300}}>
             { this.state.notverified ? 
               <div style={{textAlign:"center", verticalAlign:"middle"}}>
                 <div className={styles.verifyTitle} style={{textAlign:"center"}}>Enter credential details to verify a certificate</div>
