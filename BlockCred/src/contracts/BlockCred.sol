@@ -36,6 +36,18 @@ contract BlockCred {
         certificateCount++;
     }
     
+    function directCreation(string memory name, address recipient) public {
+        Certificate storage c = certificates[certificateCount];
+        c.identity = certificateCount;
+        c.certificateName = name;
+        c.author = msg.sender;
+        c.recipients = 0;
+        c.certificateCost = 0;
+        c.holding = 0;
+        c.recipientsMapping[recipient] = true;
+        certificateCount++;
+    }
+    
     function approveRequest(uint _id, address student, uint reqid) public payable {
         Certificate storage c = certificates[_id];
         require(msg.sender == c.author, 'You are not authorised');
@@ -49,7 +61,7 @@ contract BlockCred {
     }
     
     function purchaseCertificate(uint _id, uint cost) public payable {
-        // require(_id > 0 && _id <= certificateCount, 'Id not valid');
+        require(_id > 0 && _id <= certificateCount, 'Id not valid');
         Certificate storage c = certificates[_id];
         require(cost >= c.certificateCost, "This certificate is worth more.");
         c.holding = c.holding + cost;

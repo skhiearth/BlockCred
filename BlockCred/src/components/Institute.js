@@ -78,6 +78,15 @@ class Institute extends Component {
     })
   }
 
+  directCreate(content, student) {
+    this.setState({ loading: true })
+    this.state.blockCred.methods.directCreation(content, student).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+      console.log(this.state.loading)
+    })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -92,6 +101,7 @@ class Institute extends Component {
 
     this.createCertificate = this.createCertificate.bind(this)
     this.approveRequest = this.approveRequest.bind(this)
+    this.directCreate = this.directCreate.bind(this)
   }
 
   render() {
@@ -130,6 +140,33 @@ class Institute extends Component {
                     required />
                 </div>
                 <button type="submit" className="btn btn btn-outline-primary btn-block">Create Certificate</button>
+              </form>
+              <p>&nbsp;</p>
+              <form onSubmit={(event) => {
+                  event.preventDefault()
+                  const name = this.certificateName.value
+                  const student = this.studentAdd.value
+                  this.directCreate(name.toString(), student.toString())
+                }}>
+                <div className="form-group">
+                  <input
+                    id="certificateName"
+                    type="text"
+                    ref={(input) => { this.certificateName = input }}
+                    className="form-control"
+                    placeholder="Name of the certificate"
+                    required />
+                </div>
+                <div className="form-group">
+                  <input
+                    id="studentAdd"
+                    type="text"
+                    ref={(input) => { this.studentAdd = input }}
+                    className="form-control"
+                    placeholder="Recipient's public address"
+                    required />
+                </div>
+                <button type="submit" className="btn btn btn-outline-info btn-block">Assign Credentials</button>
               </form>
               <p>&nbsp;</p>
               <div style={{textAlign:"center", verticalAlign:"middle"}}>
