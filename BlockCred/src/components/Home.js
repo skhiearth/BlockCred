@@ -5,6 +5,7 @@ import styles from './App.module.css';
 import BlockCred from '../abis/BlockCred.json'
 import Main from './Main'
 import bg from '../BlockCred UI elements/bg.png'
+import FingerprintSpinner from '@bit/bondz.react-epic-spinners.fingerprint-spinner';
 
 const style = {
   content: {
@@ -12,6 +13,7 @@ const style = {
     width: "100%",
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     color: "white",
+    padding: 7,
     borderRadius: 20,
   }
 }
@@ -140,7 +142,14 @@ class Home extends Component {
     return (
       <div styles={{ backgroundImage:`url(${bg})`}}>
         { this.state.loading
-          ? <div id="loader" className="text-center mt-8"><p>Loading...</p></div>
+          ? 
+          <div className="center mt-19">
+              <FingerprintSpinner
+                style={{width: "100%", height: "100%"}}
+                color='#251F82'
+                size='200'
+	            />
+            </div>
           : 
           <div>
           <div className="about">
@@ -150,36 +159,40 @@ class Home extends Component {
                 <button onClick={() => this.sortCost()} style={{marginRight: 10}} className="btn btn btn-outline-secondary">Sort by Cost</button>
                 <button onClick={() => this.sortPopularity()} className="btn btn btn-outline-secondary">Sort by Popularity</button>
                 <Main
+                    requests={this.state.requests}
                     certificates={this.state.certificates}
                     createCertificate={this.createCertificate}
                     purchaseCertificate={this.purchaseCertificate}
                   />
               </div>
               
-              <div class="col-lg-4" style={style.content}>
-
-                <div className={styles.verifyTitle}>My Certificates</div>
-                <p></p>
-                <div>
-                  { this.state.notrequest ? <div>
-                        <p className={styles.verifyBody}>
-                          No certificates found :(
-                        </p>
-                      </div> :
-                      <div>
-                    { this.state.requests.map((request, key) => {
-                      return(
-                        <div key={key} >
+              <div class="col-lg-4" >
+                <div style={{padding: 5, fontSize: 11, fontWeight: 600}}>Logged in as: {this.state.account}</div>
+                <div style={style.content}>
+                  <div className={styles.verifyTitle}>My Certificates</div>
+                  <p></p>
+                  <div>
+                    { this.state.notrequest ? <div>
                           <p className={styles.verifyBody}>
-                            Certificate {request.certName.toString()} with ID {request.certificateId.toString()} issued by {request.certificateOwner.toString()}
+                            No certificates found :(
                           </p>
-                        </div>
-                      )
-                    })}
-                    </div>
-                  }
+                        </div> :
+                        <div>
+                      { this.state.requests.map((request, key) => {
+                        return(
+                          <div key={key} >
+                            <p className={styles.verifyBody}>
+                              Certificate named {request.certName.toString()} with ID {request.certificateId.toString()} issued by {request.certificateOwner.toString()}
+                            </p>
+                          </div>
+                        )
+                      })}
+                      </div>
+                    }
+                  </div>
+                  </div>
                 </div>
-                </div>
+                
               </div>
           </div>
         </div>

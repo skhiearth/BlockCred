@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import styles from './App.module.css';
 // import VerifyComponent from "./VerifyComponent";
-import bg from '../BlockCred UI elements/bg.png'
 import BlockCred from '../abis/BlockCred.json';
 import Web3 from 'web3';
-import { MDBContainer } from 'mdbreact';
 import bagde from './Assets/badge.png';
 import noRec from './Assets/noRec.png';
 import domtoimage from 'dom-to-image';

@@ -4,7 +4,7 @@ import './App.css';
 import styles from './App.module.css';
 import BlockCred from '../abis/BlockCred.json'
 import bg from '../BlockCred UI elements/bg.png'
-var api = require('etherscan-api').init('AGC1TEVQX85RTXQUF76WJWCV58JFREVMJD', 'ropsten', '3000');
+import FingerprintSpinner from '@bit/bondz.react-epic-spinners.fingerprint-spinner';
 
 class Institute extends Component {
 
@@ -123,7 +123,15 @@ class Institute extends Component {
     return (
       <div styles={{ backgroundImage:`url(${bg})`}}>
         { this.state.loading
-          ? <div id="loader" className="text-center mt-8"><p>Loading...</p></div>
+          ? 
+          <div className="center mt-19">
+              <FingerprintSpinner
+                style={{width: "100%", height: "100%"}}
+                color='#251F82'
+                size='200'
+	            />
+            </div>
+          
           : 
           <div className="container-fluid">
         <div className="row">
