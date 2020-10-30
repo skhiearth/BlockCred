@@ -126,7 +126,7 @@ class Institute extends Component {
           ? 
           <div className="center mt-19">
               <FingerprintSpinner
-                style={{width: "100%", height: "100%"}}
+                style={{width: "100%"}}
                 color='#251F82'
                 size='200'
 	            />

@@ -145,7 +145,7 @@ class Home extends Component {
           ? 
           <div className="center mt-19">
               <FingerprintSpinner
-                style={{width: "100%", height: "100%"}}
+                style={{width: "100%"}}
                 color='#251F82'
                 size='200'
 	            />
@@ -156,6 +156,7 @@ class Home extends Component {
           <div class="container">
             <div class="row align-items-center my-5">
               <div class="col-lg-8">
+              <div style={{padding: 16, fontSize: 12, fontWeight: 600}}>Logged in as: {this.state.account}</div>
                 <button onClick={() => this.sortCost()} style={{marginRight: 10}} className="btn btn btn-outline-secondary">Sort by Cost</button>
                 <button onClick={() => this.sortPopularity()} className="btn btn btn-outline-secondary">Sort by Popularity</button>
                 <Main
@@ -167,7 +168,6 @@ class Home extends Component {
               </div>
               
               <div class="col-lg-4" >
-                <div style={{padding: 5, fontSize: 11, fontWeight: 600}}>Logged in as: {this.state.account}</div>
                 <div style={style.content}>
                   <div className={styles.verifyTitle}>My Certificates</div>
                   <p></p>
