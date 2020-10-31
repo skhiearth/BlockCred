@@ -12,6 +12,8 @@ Code, deployment repo and supporting documentation for the BlockCred project by 
 
 A platform to securely issue and verify digital credential would go a long way to help both the issuing institutions and the receiving individuals. The lack of transparency in the issuing process, a seeming disconnect between the two ends and security loopholes all plague the various existing systems used for such credential issuing and verification.
 
+![App Screenshots](https://github.com/simmsss/BlockCred/blob/main/Screenshots/Home.png?raw=true)
+
 Our platform, BlockCred, is a Blockchain-powered Credential Issuing system that allows for complete transparency and authentication of such digital badges. 
 On the part of the institutions, it allows for a platform to fish out authenticated candidates interested in availing their services, and on the part of the candidates, it allows for a seamless process for getting rewarded.
 
@@ -53,10 +55,14 @@ The application straight-up gives three options to the different category of use
 1.	**Institutions**
   -	All users can issue certificates in their name. Institutions can also see certificate requests from different students and can approve/decline requests. After this they can collect the certificate fee in their wallets and in case a request is denied, the fee is refunded. 
   -	Another option at their hand is to issue cashless certificates directly to a set of candidates, i.e., enter the recipient address during the time of creation, directly give them the credentials and not charge any money for these certificates.
+  
+  ![App Screenshots](https://github.com/simmsss/BlockCred/blob/main/Screenshots/Institution.png?raw=true)
 
 2.	**Students:** Browse, apply and pay for certificates created by institution/organisations on the platform.
 
 3.	**Verifiers:** No login required, completely gas-less transactions that anyone can use. Candidates can share the link and certificate ID with potential employers, academia or add it to their portfolio and viewers can easily verify the existence of the credential on the platform.
+
+ ![App Screenshots](https://github.com/simmsss/BlockCred/blob/main/Screenshots/Validate.png?raw=true)
  
 ### TECHNICAL ARCHITECTURE 
 BlockCred, a secure and transparent system for issuance and verification, makes use of the Ethereum blockchain and connects to it via an Infura node. The front-end MVP/POC is built using React, giving us a responsive and scalable application.
