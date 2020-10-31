@@ -13,7 +13,9 @@ module.exports = {
     ropsten: {
       provider: () => new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/18ff33fefaa842c4bce3da488a244e46"),
       network_id: 3,
-      gas: 560133
+      gas: 4042643,
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true
     }
   },
 

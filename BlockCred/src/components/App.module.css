@@ -82,6 +82,7 @@
 .certificateName {
     color: #250f82;
     font-family: 'Barlow', sans-serif;
+    text-align: center;
     font-size: 24px;
     font-weight: 700;
 }

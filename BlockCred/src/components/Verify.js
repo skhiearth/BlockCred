@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom';
 import styles from './App.module.css';
 // import VerifyComponent from "./VerifyComponent";
 import BlockCred from '../abis/BlockCred.json';
@@ -7,6 +8,7 @@ import bagde from './Assets/badge.png';
 import noRec from './Assets/noRec.png';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
+import * as qs from 'query-string';
 
 class Verify extends Component {
 
@@ -65,6 +67,7 @@ class Verify extends Component {
         this.setState({ notverified: false });
         const _temp = await this.state.blockCred.methods.certificates(contractId).call()
         this.setState({ verifiedCertificate: _temp.certificateName.toString() });
+        this.setState({ verifiedCertId: _temp.identity.toString() });
     } else {
         this.setState({ notverified: true });
         window.alert('No record found!')
@@ -80,7 +83,10 @@ class Verify extends Component {
       certificateCount: 0,
       certificates: [],
       loading: true,
-      verifiedCertificate: null
+      verifiedCertificate: null,
+      verifiedCertId: null,
+      address: "0x0",
+      id: "-1"
     }
 
     this.verifyCertificate = this.verifyCertificate.bind(this)
@@ -103,7 +109,8 @@ class Verify extends Component {
                 <div id="certificateDown"style={{ height: 300, backgroundImage: "url(" + bagde + ")", backgroundPosition: 'center', backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat', resizeMode: 'contain'}}>
                   
-                  <p style={{paddingTop: 115, textAlign: "center"}} className={styles.certificateName}>{this.state.verifiedCertificate}</p>
+                  <p style={{paddingTop: 90, textAlign: "center"}} className={styles.certificateAddress}>Credential ID: {this.state.verifiedCertId}</p>
+                  <p style={{paddingTop: -12, marginTop: -4}} className={styles.certificateName}>{this.state.verifiedCertificate}</p>
                   <p style={{paddingTop: 0, textAlign: "center"}} className={styles.certificateAddress}>Issued to: {this.state.account}</p>
                 </div>
                 <div style={{textAlign: "center", paddingTop: 15}}>
@@ -127,13 +134,13 @@ class Verify extends Component {
               <div className={styles.verifyTitle}>Verify Credentials</div>
               <p></p>
               <p className={styles.verifyBody}>
-                Leveraging Ethereum blockchain and Smart Contracts, BlockCred offers a certificate validation platforms. 
+                Leveraging Smart Contracts on Ethereum blockchain, BlockCred offers certificate validation platforms. 
                 All certificates issued here are immutable and every record of issuing and creating certificates is reflected
                 on the public blockchain. 
               </p>
               <p className={styles.verifyBody}>
-              BlockCred offers decentralised control, transparency and immutability to a transparent, 
-                decentralized and trusted solution.
+                BlockCred uses decentralised control, immutability, consesus protocol, distributed storage of data and Smart Contracts to 
+                achieve a transparent, decentralised and trusted solution.
               </p>
               <div>
             <div className="content mr-auto ml-auto">

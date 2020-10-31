@@ -5,10 +5,12 @@ On the part of the institutions, it allows for a platform to fish out authentica
 
 FEATURES
 We cater to the needs of both ends of the spectrum and put forth the following features and functionalities.
+
 Scalability
 •	Faultless verification of credentials issued on the platform
 •	A suggestion contraption on the end of the issuing authorities to link them up with possible candidates based on their records
 •	Recommendation Systems for related certificates and credentials
+
 Security and Decentralised control 
 •	One-touch login using Blockchain wallets like Metamask to ensure for an authenticated bunch of users
 •	Secure and hassle-free financial transactions on Ethereum blockchain
@@ -30,6 +32,7 @@ The application straight-up gives three options to the different category of use
 1.	Institutions
 i)	All users can issue certificates in their name. Institutions can also see certificate requests from different students and can approve/decline requests. After this they can collect the certificate fee in their wallets and in case a request is denied, the fee is refunded. 
 ii)	Another option at their hand is to issue cashless certificates directly to a set of candidates, i.e., enter the recipient address during the time of creation, directly give them the credentials and not charge any money for these certificates.
+
 2.	Students: Browse, apply and pay for certificates created by institution/organisations on the platform.
 
 3.	Verifiers: No login required, completely gas-less transactions that anyone can use. Candidates can share the link and certificate ID with potential employers, academia or add it to their portfolio and viewers can easily verify the existence of the credential on the platform.
@@ -43,3 +46,4 @@ FUTURE GOALS
 •	A wallet of our own, used for both transactions and authentication can be implemented to reduce dependency on external wallets like Metamask.
 •	Notably, the platform can create an ERC20 token in its name and do an ICO, offering an easy pathway for the users to pay for their learning and earn revenue for the platform as a whole. This would facilitate us into making our solution a completely free service for the issuing authorities.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/56ba7552-ab67-4fe2-ac4b-62d6deaeb944/deploy-status)](https://app.netlify.com/sites/blockcred/deploys)
