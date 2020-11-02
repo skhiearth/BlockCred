@@ -93,6 +93,7 @@ class Main extends Component {
 
   render() {
     return (
+      // Purchased Certificates column & Identicons
       <div className="container-fluid">
         <div className="row">
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '800px' }}>
