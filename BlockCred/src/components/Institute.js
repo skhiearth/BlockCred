@@ -124,6 +124,7 @@ class Institute extends Component {
       <div styles={{ backgroundImage:`url(${bg})`}}>
         { this.state.loading
           ? 
+          
           <div className="center mt-19">
               <FingerprintSpinner
                 style={{width: "100%"}}
@@ -131,13 +132,13 @@ class Institute extends Component {
                 size='200'
 	            />
             </div>
-          
           : 
           <div className="container-fluid">
         <div className="row">
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '800px' }}>
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
+              
                 <form onSubmit={(event) => {
                   event.preventDefault()
                   const content = this.certificateContent.value
