@@ -82,6 +82,7 @@ class VerifyComponent extends Component {
   render() {
     return (
         <div>
+          {/* Credential Verification */}
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
                 <form onSubmit={(event) => {

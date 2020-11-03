@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import styles from './App.module.css';
 import icon from './Assets/icon.png';
 
+// Website NavBar
 function Navigation(props) {
   return (
     <div className="navigation">

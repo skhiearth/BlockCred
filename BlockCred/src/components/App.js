@@ -53,6 +53,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" style={{height:800}}>
+        {/* App NavBar */}
         <Router>
           <Navigation account={this.state.account}/>
           <Switch>

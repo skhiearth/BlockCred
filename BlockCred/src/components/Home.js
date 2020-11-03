@@ -144,6 +144,7 @@ class Home extends Component {
         { this.state.loading
           ? 
           <div className="center mt-19">
+            {/* loader */}
               <FingerprintSpinner
                 style={{width: "100%"}}
                 color='#251F82'
@@ -168,6 +169,7 @@ class Home extends Component {
               </div>
               
               <div class="col-lg-5" >
+                {/* 'My Certificates' column */}
                 <div style={style.content}>
                   <div className={styles.verifyTitle}>My Certificates</div>
                   <p></p>
