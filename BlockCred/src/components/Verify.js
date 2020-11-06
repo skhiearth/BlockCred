@@ -95,6 +95,7 @@ class Verify extends Component {
   render(){
     return (
       <div>
+        {/* No Record found */}
         <div className="about">
         <div class="container">
           <div class="row align-items-center my-5">
@@ -108,7 +109,7 @@ class Verify extends Component {
               <div>
                 <div id="certificateDown"style={{ height: 300, backgroundImage: "url(" + bagde + ")", backgroundPosition: 'center', backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat', resizeMode: 'contain'}}>
-                  
+                  {/* Badge Issued for the Certificate */}
                   <p style={{paddingTop: 90, textAlign: "center"}} className={styles.certificateAddress}>Credential ID: {this.state.verifiedCertId}</p>
                   <p style={{paddingTop: -12, marginTop: -4}} className={styles.certificateName}>{this.state.verifiedCertificate}</p>
                   <p style={{paddingTop: 0, textAlign: "center"}} className={styles.certificateAddress}>Issued to: {this.state.account}</p>
@@ -131,6 +132,7 @@ class Verify extends Component {
             }
             </div>
             <div class="col-lg-5">
+              {/* 'Verify Credentials' text body */}
               <div className={styles.verifyTitle}>Verify Credentials</div>
               <p></p>
               <p className={styles.verifyBody}>

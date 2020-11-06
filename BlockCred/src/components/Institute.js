@@ -123,21 +123,22 @@ class Institute extends Component {
     return (
       <div styles={{ backgroundImage:`url(${bg})`}}>
         { this.state.loading
-          ? 
+          ?  
           <div className="center mt-19">
+            {/* loader */}
               <FingerprintSpinner
                 style={{width: "100%"}}
                 color='#251F82'
                 size='200'
 	            />
-            </div>
-          
+          </div>
           : 
           <div className="container-fluid">
         <div className="row">
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '800px' }}>
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
+                {/* Certificate creation */}
                 <form onSubmit={(event) => {
                   event.preventDefault()
                   const content = this.certificateContent.value
@@ -145,6 +146,7 @@ class Institute extends Component {
                   this.createCertificate(content, window.web3.utils.toWei(value.toString(), 'Ether'))
                 }}>
                 <div className="form-group">
+                  {/* Input for name of the certificate */}
                   <input
                     id="certificateContent"
                     type="text"
@@ -154,6 +156,7 @@ class Institute extends Component {
                     required />
                 </div>
                 <div className="form-group">
+                  {/* Input for value of the certificate */}
                   <input
                     id="certificateValue"
                     type="text"
@@ -200,7 +203,7 @@ class Institute extends Component {
                 return(
                     
                   <div className="card mb-4" key={key} >
-
+                    {/* Transaction Information */}
                     <div className="card-header">
                       <small className="text-muted">Request of ID: {request.id.toString()}</small>
                       <p></p>
